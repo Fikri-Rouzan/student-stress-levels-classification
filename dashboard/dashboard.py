@@ -39,7 +39,7 @@ with st.sidebar:
     st.title("Data Stres Mahasiswa")
     st.markdown("---")
 
-    st.info("🌲 Model Aktif: Random Forest")
+    st.info("Model: Random Forest")
 
     st.markdown("---")
     st.caption(
