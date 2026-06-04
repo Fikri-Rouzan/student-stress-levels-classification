@@ -1,6 +1,6 @@
 # Student Stress Levels Classification
 
-## 📌 Deskripsi Proyek
+## 📌 Deskripsi
 
 Proyek ini dirancang untuk memetakan dan mengklasifikasikan tingkat stres mahasiswa berdasarkan berbagai parameter input yang memengaruhi kondisi akademik serta psikologis mereka. Dengan memanfaatkan pemodelan berbasis machine learning, sistem ini mampu memprediksi kecenderungan tekanan mental berdasarkan data yang dimasukkan. Hasil akhir ini bertujuan membantu pihak perguruan tinggi dalam memahami kesejahteraan psikologis mahasiswa secara terukur guna mendukung pengambilan keputusan yang tepat dan menciptakan lingkungan kampus yang lebih kondusif.
 
