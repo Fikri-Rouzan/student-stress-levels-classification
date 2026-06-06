@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import os
 import joblib
-import time
 import math
 from datetime import datetime
 
@@ -56,223 +55,244 @@ st.markdown("---")
 
 tab1, tab2, tab3 = st.tabs(["🔍 Prediksi Stres", "📖 Panduan Parameter", "🕒 Riwayat"])
 
-# Tab 1 untuk prediksi stres
-with tab1:
-    with st.container(border=True):
-        st.subheader("Input Parameter Mahasiswa")
-        st.markdown("Silakan isi nilai untuk setiap parameter di bawah ini:")
-
-        col1, col2, col3, col4 = st.columns(4)
-        # Kolom kesehatan mental
-        with col1:
-            anxiety_level = st.number_input(
-                "Anxiety Level (0-30)", min_value=0, max_value=30, value=10
-            )
-            self_esteem = st.number_input(
-                "Self Esteem (0-30)", min_value=0, max_value=30, value=15
-            )
-            mental_health_history = st.selectbox(
-                "Mental Health History",
-                options=[0, 1],
-                format_func=lambda x: "Ya" if x == 1 else "Tidak",
-            )
-            depression = st.number_input(
-                "Depression (0-30)", min_value=0, max_value=30, value=10
-            )
-            headache = st.number_input(
-                "Headache (0-10)", min_value=0, max_value=10, value=2
+# Memastikan model berhasil dimuat sebelum menampilkan tab prediksi
+if rf_model:
+    # Tab 1 untuk prediksi stres
+    with tab1:
+        with st.container(border=True):
+            st.subheader("Parameter Mahasiswa")
+            st.markdown(
+                "Geser slider di bawah ini untuk mengubah nilai karakteristik mahasiswa:"
             )
 
-        # Kolom faktor fisik dan lingkungan
-        with col2:
-            blood_pressure = st.number_input(
-                "Blood Pressure (0-5)", min_value=0, max_value=5, value=2
-            )
-            sleep_quality = st.number_input(
-                "Sleep Quality (0-5)", min_value=0, max_value=5, value=3
-            )
-            breathing_problem = st.number_input(
-                "Breathing Problem (0-5)", min_value=0, max_value=5, value=2
-            )
-            noise_level = st.number_input(
-                "Noise Level (0-5)", min_value=0.0, max_value=5.0, value=2.0, step=0.5
-            )
-            living_conditions = st.number_input(
-                "Living Conditions (0-5)",
-                min_value=0.0,
-                max_value=5.0,
-                value=3.0,
-                step=0.5,
-            )
+            col1, col2, col3, col4 = st.columns(4)
+            # Kolom kesehatan mental
+            with col1:
+                anxiety_level = st.slider(
+                    "Anxiety Level", min_value=0, max_value=30, value=10
+                )
+                self_esteem = st.slider(
+                    "Self Esteem", min_value=0, max_value=30, value=15
+                )
+                mental_health_history = st.selectbox(
+                    "Mental Health History",
+                    options=[0, 1],
+                    format_func=lambda x: "Ya" if x == 1 else "Tidak",
+                )
+                depression = st.slider(
+                    "Depression", min_value=0, max_value=30, value=18
+                )
+                headache = st.slider("Headache", min_value=0, max_value=10, value=6)
 
-        # Kolom kebutuhan dan akademik
-        with col3:
-            safety = st.number_input("Safety (0-5)", min_value=0, max_value=5, value=3)
-            basic_needs = st.number_input(
-                "Basic Needs (0-5)", min_value=0, max_value=5, value=3
-            )
-            academic_performance = st.number_input(
-                "Academic Performance (0-5)", min_value=0, max_value=5, value=3
-            )
-            study_load = st.number_input(
-                "Study Load (0-5)", min_value=0.0, max_value=5.0, value=2.0, step=0.5
-            )
-            teacher_student_relationship = st.number_input(
-                "Teacher-Student Relationship (0-5)", min_value=0, max_value=5, value=3
-            )
-
-        # Kolom sosial dan ekstrakurikuler
-        with col4:
-            future_career_concerns = st.number_input(
-                "Future Career Concerns (0-5)", min_value=0, max_value=5, value=3
-            )
-            social_support = st.number_input(
-                "Social Support (0-5)", min_value=0, max_value=5, value=2
-            )
-            peer_pressure = st.number_input(
-                "Peer Pressure (0-5)", min_value=0, max_value=5, value=3
-            )
-            extracurricular_activities = st.number_input(
-                "Extracurricular Activities (0-5)", min_value=0, max_value=5, value=2
-            )
-            bullying = st.number_input(
-                "Bullying (0-5)", min_value=0, max_value=5, value=1
-            )
-
-    st.write("")
-
-    # Button untuk menjalankan prediksi
-    if st.button(
-        "🔍︎ Analisis Tingkat Stres", type="primary", use_container_width=True
-    ):
-        if rf_model:
-            with st.spinner("Menganalisis data..."):
-                time.sleep(0.5)
-
-                # data input untuk prediksi
-                input_features = [
-                    anxiety_level,
-                    self_esteem,
-                    mental_health_history,
-                    depression,
-                    headache,
-                    blood_pressure,
-                    sleep_quality,
-                    breathing_problem,
-                    noise_level,
-                    living_conditions,
-                    safety,
-                    basic_needs,
-                    academic_performance,
-                    study_load,
-                    teacher_student_relationship,
-                    future_career_concerns,
-                    social_support,
-                    peer_pressure,
-                    extracurricular_activities,
-                    bullying,
-                ]
-
-                feature_names = [
-                    "anxiety_level",
-                    "self_esteem",
-                    "mental_health_history",
-                    "depression",
-                    "headache",
-                    "blood_pressure",
-                    "sleep_quality",
-                    "breathing_problem",
-                    "noise_level",
-                    "living_conditions",
-                    "safety",
-                    "basic_needs",
-                    "academic_performance",
-                    "study_load",
-                    "teacher_student_relationship",
-                    "future_career_concerns",
-                    "social_support",
-                    "peer_pressure",
-                    "extracurricular_activities",
-                    "bullying",
-                ]
-
-                features_df = pd.DataFrame([input_features], columns=feature_names)
-
-                # Prediksi dengan model Random Forest
-                prediction = rf_model.predict(features_df)[0]
-
-                # Menentukan status berdasarkan hasil prediksi
-                if prediction == 0:
-                    status_text = "STRES RENDAH (LOW)"
-                    status_icon = "✅"
-                    alert_type = "success"
-                elif prediction == 1:
-                    status_text = "STRES SEDANG (MEDIUM)"
-                    status_icon = "⚠️"
-                    alert_type = "warning"
-                else:
-                    status_text = "STRES TINGGI (HIGH)"
-                    status_icon = "🚨"
-                    alert_type = "error"
-
-                timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-
-                # Menyimpan hasil prediksi ke riwayat
-                st.session_state.history.append(
-                    {
-                        "time": timestamp,
-                        "model": "Random Forest",
-                        "status": status_text,
-                        "icon": status_icon,
-                        "alert": alert_type,
-                        "params": {
-                            "Anxiety Level": anxiety_level,
-                            "Self Esteem": self_esteem,
-                            "Mental Health History": (
-                                "Ya" if mental_health_history == 1 else "Tidak"
-                            ),
-                            "Depression": depression,
-                            "Headache": headache,
-                            "Blood Pressure": blood_pressure,
-                            "Sleep Quality": sleep_quality,
-                            "Breathing Problem": breathing_problem,
-                            "Noise Level": noise_level,
-                            "Living Conditions": living_conditions,
-                            "Safety": safety,
-                            "Basic Needs": basic_needs,
-                            "Academic Performance": academic_performance,
-                            "Study Load": study_load,
-                            "Teacher-Student Relationship": teacher_student_relationship,
-                            "Future Career Concerns": future_career_concerns,
-                            "Social Support": social_support,
-                            "Peer Pressure": peer_pressure,
-                            "Extracurricular Activities": extracurricular_activities,
-                            "Bullying": bullying,
-                        },
-                    }
+            # Kolom faktor fisik dan lingkungan
+            with col2:
+                blood_pressure = st.slider(
+                    "Blood Pressure", min_value=0, max_value=5, value=4
+                )
+                sleep_quality = st.slider(
+                    "Sleep Quality", min_value=0, max_value=5, value=4
+                )
+                breathing_problem = st.slider(
+                    "Breathing Problem",
+                    min_value=0,
+                    max_value=5,
+                    value=2,
+                )
+                noise_level = st.slider(
+                    "Noise Level",
+                    min_value=0.0,
+                    max_value=5.0,
+                    value=3.0,
+                    step=0.5,
+                )
+                living_conditions = st.slider(
+                    "Living Conditions",
+                    min_value=0.0,
+                    max_value=5.0,
+                    value=2.0,
+                    step=0.5,
                 )
 
-                st.markdown("---")
-                st.subheader("Hasil Analisis")
+            # Kolom kebutuhan dan akademik
+            with col3:
+                safety = st.slider("Safety", min_value=0, max_value=5, value=4)
+                basic_needs = st.slider(
+                    "Basic Needs", min_value=0, max_value=5, value=5
+                )
+                academic_performance = st.slider(
+                    "Academic Performance",
+                    min_value=0,
+                    max_value=5,
+                    value=4,
+                )
+                study_load = st.slider(
+                    "Study Load",
+                    min_value=0.0,
+                    max_value=5.0,
+                    value=3.0,
+                    step=0.5,
+                )
+                teacher_student_relationship = st.slider(
+                    "Teacher-Student Relationship",
+                    min_value=0,
+                    max_value=5,
+                    value=1,
+                )
 
-                # Menampilkan notifikasi visual sesuai tingkat stres
-                if alert_type == "success":
-                    st.success(f"### {status_icon} STATUS: {status_text}")
-                    st.write(
-                        "Berdasarkan model klasifikasi, tingkat stres mahasiswa tergolong **Rendah**. Teruskan kebiasaan baik dan lingkungan yang suportif!"
-                    )
-                elif alert_type == "warning":
-                    st.warning(f"### {status_icon} STATUS: {status_text}")
-                    st.write(
-                        "Berdasarkan model klasifikasi, tingkat stres mahasiswa tergolong **Sedang**. Perhatikan keseimbangan jadwal kuliah dan kesehatan mental."
-                    )
-                else:
-                    st.error(f"### {status_icon} STATUS: {status_text}")
-                    st.write(
-                        "Berdasarkan model klasifikasi, tingkat stres mahasiswa tergolong **Tinggi**. Disarankan untuk mencari dukungan sosial atau konseling kampus."
-                    )
+            # Kolom sosial dan ekstrakurikuler
+            with col4:
+                future_career_concerns = st.slider(
+                    "Future Career Concerns",
+                    min_value=0,
+                    max_value=5,
+                    value=3,
+                )
+                social_support = st.slider(
+                    "Social Support", min_value=0, max_value=5, value=4
+                )
+                peer_pressure = st.slider(
+                    "Peer Pressure", min_value=0, max_value=5, value=1
+                )
+                extracurricular_activities = st.slider(
+                    "Extracurricular Activities",
+                    min_value=0,
+                    max_value=5,
+                    value=2,
+                )
+                bullying = st.slider("Bullying", min_value=0, max_value=5, value=1)
+
+        # Mempersiapkan data input untuk model prediksi
+        input_features = [
+            anxiety_level,
+            self_esteem,
+            mental_health_history,
+            depression,
+            headache,
+            blood_pressure,
+            sleep_quality,
+            breathing_problem,
+            noise_level,
+            living_conditions,
+            safety,
+            basic_needs,
+            academic_performance,
+            study_load,
+            teacher_student_relationship,
+            future_career_concerns,
+            social_support,
+            peer_pressure,
+            extracurricular_activities,
+            bullying,
+        ]
+
+        feature_names = [
+            "anxiety_level",
+            "self_esteem",
+            "mental_health_history",
+            "depression",
+            "headache",
+            "blood_pressure",
+            "sleep_quality",
+            "breathing_problem",
+            "noise_level",
+            "living_conditions",
+            "safety",
+            "basic_needs",
+            "academic_performance",
+            "study_load",
+            "teacher_student_relationship",
+            "future_career_concerns",
+            "social_support",
+            "peer_pressure",
+            "extracurricular_activities",
+            "bullying",
+        ]
+
+        features_df = pd.DataFrame([input_features], columns=feature_names)
+
+        # Melakukan prediksi langsung
+        prediction = rf_model.predict(features_df)[0]
+
+        # Menentukan status tingkat stres berdasarkan hasil keluaran model
+        if prediction == 0:
+            status_text = "STRES RENDAH (LOW)"
+            status_icon = "✅"
+            alert_type = "success"
+        elif prediction == 1:
+            status_text = "STRES SEDANG (MEDIUM)"
+            status_icon = "⚠️"
+            alert_type = "warning"
         else:
-            st.error("Model belum dimuat dengan benar. Pastikan folder 'model' ada.")
+            status_text = "STRES TINGGI (HIGH)"
+            status_icon = "🚨"
+            alert_type = "error"
+
+        # Hasil analisis
+        st.write("")
+        st.subheader("Hasil Analisis")
+
+        if alert_type == "success":
+            st.success(f"### {status_icon} STATUS: {status_text}")
+            st.write(
+                "Berdasarkan model klasifikasi, tingkat stres mahasiswa tergolong **Rendah**. Teruskan kebiasaan baik dan lingkungan yang suportif!"
+            )
+        elif alert_type == "warning":
+            st.warning(f"### {status_icon} STATUS: {status_text}")
+            st.write(
+                "Berdasarkan model klasifikasi, tingkat stres mahasiswa tergolong **Sedang**. Perhatikan keseimbangan jadwal kuliah dan kesehatan mental."
+            )
+        else:
+            st.error(f"### {status_icon} STATUS: {status_text}")
+            st.write(
+                "Berdasarkan model klasifikasi, tingkat stres mahasiswa tergolong **Tinggi**. Disarankan untuk mencari dukungan sosial atau konseling kampus."
+            )
+
+        st.markdown("---")
+
+        # Tombol untuk menyimpan hasil prediksi ke riwayat
+        if st.button(
+            "💾 Simpan Hasil Prediksi",
+            type="primary",
+            use_container_width=True,
+        ):
+            timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+            st.session_state.history.append(
+                {
+                    "time": timestamp,
+                    "model": "Random Forest",
+                    "status": status_text,
+                    "icon": status_icon,
+                    "alert": alert_type,
+                    "params": {
+                        "Anxiety Level": anxiety_level,
+                        "Self Esteem": self_esteem,
+                        "Mental Health History": (
+                            "Ya" if mental_health_history == 1 else "Tidak"
+                        ),
+                        "Depression": depression,
+                        "Headache": headache,
+                        "Blood Pressure": blood_pressure,
+                        "Sleep Quality": sleep_quality,
+                        "Breathing Problem": breathing_problem,
+                        "Noise Level": noise_level,
+                        "Living Conditions": living_conditions,
+                        "Safety": safety,
+                        "Basic Needs": basic_needs,
+                        "Academic Performance": academic_performance,
+                        "Study Load": study_load,
+                        "Teacher-Student Relationship": teacher_student_relationship,
+                        "Future Career Concerns": future_career_concerns,
+                        "Social Support": social_support,
+                        "Peer Pressure": peer_pressure,
+                        "Extracurricular Activities": extracurricular_activities,
+                        "Bullying": bullying,
+                    },
+                }
+            )
+            st.toast("Prediksi stres berhasil disimpan ke tab 'Riwayat'!", icon="💾")
+
+else:
+    st.error("Gagal memuat model prediksi. Pastikan komponen model tersedia.")
 
 # Tab 2 untuk panduan parameter
 with tab2:
@@ -323,10 +343,59 @@ with tab3:
 
     if total_items == 0:
         st.info(
-            "Belum ada riwayat prediksi. Silakan lakukan analisis terlebih dahulu di tab 'Prediksi Stres'."
+            "Belum ada riwayat prediksi. Silakan tekan tombol 'Simpan Hasil Prediksi' di tab 'Prediksi Stres'."
         )
     else:
         st.write(f"Total pengujian pada sesi ini: **{total_items} data**")
+
+        # dataframe untuk menyimpan seluruh riwayat prediksi
+        history_df = pd.DataFrame(
+            [
+                {
+                    "Waktu": item["time"],
+                    "Model": item["model"],
+                    "Status Analisis": item["status"],
+                    "Anxiety Level": item["params"]["Anxiety Level"],
+                    "Self Esteem": item["params"]["Self Esteem"],
+                    "Mental Health History": item["params"]["Mental Health History"],
+                    "Depression": item["params"]["Depression"],
+                    "Headache": item["params"]["Headache"],
+                    "Blood Pressure": item["params"]["Blood Pressure"],
+                    "Sleep Quality": item["params"]["Sleep Quality"],
+                    "Breathing Problem": item["params"]["Breathing Problem"],
+                    "Noise Level": item["params"]["Noise Level"],
+                    "Living Conditions": item["params"]["Living Conditions"],
+                    "Safety": item["params"]["Safety"],
+                    "Basic Needs": item["params"]["Basic Needs"],
+                    "Academic Performance": item["params"]["Academic Performance"],
+                    "Study Load": item["params"]["Study Load"],
+                    "Teacher-Student Relationship": item["params"][
+                        "Teacher-Student Relationship"
+                    ],
+                    "Future Career Concerns": item["params"]["Future Career Concerns"],
+                    "Social Support": item["params"]["Social Support"],
+                    "Peer Pressure": item["params"]["Peer Pressure"],
+                    "Extracurricular Activities": item["params"][
+                        "Extracurricular Activities"
+                    ],
+                    "Bullying": item["params"]["Bullying"],
+                }
+                for item in st.session_state.history
+            ]
+        )
+
+        csv_data = history_df.to_csv(index=False).encode("utf-8")
+
+        # Tombol download riwayat
+        st.download_button(
+            label="📥 Unduh Seluruh Riwayat (CSV)",
+            data=csv_data,
+            file_name=f"riwayat_analisis_stres_{datetime.now().strftime('%Y%m%d')}.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
+
+        st.markdown("---")
 
         # Pagination untuk riwayat prediksi
         ITEMS_PER_PAGE = 5
@@ -335,7 +404,9 @@ with tab3:
         # Kontrol untuk memilih halaman
         if total_pages > 1:
             current_page = st.radio(
-                "Pilih Halaman:", options=range(1, total_pages + 1), horizontal=True
+                "Pilih Halaman Riwayat:",
+                options=range(1, total_pages + 1),
+                horizontal=True,
             )
         else:
             current_page = 1
@@ -353,7 +424,9 @@ with tab3:
 
                 # Menampilkan informasi waktu, model, dan hasil prediksi
                 with col_text:
-                    st.write(f"**{record['time']}** | Model: `{record['model']}`")
+                    st.write(
+                        f"**🕒 Waktu Penyimpanan:** {record['time']} | Model: `{record['model']}`"
+                    )
 
                     if record["alert"] == "success":
                         st.success(f"{record['icon']} **{record['status']}**")
