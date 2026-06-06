@@ -14,14 +14,14 @@ Dataset yang digunakan dalam proyek ini bersumber dari [Kaggle: Student Stress M
 
 ## 🛠️ Tech Stack
 
-| Kategori                    | Teknologi yang Digunakan                                              |
-| :-------------------------- | :-------------------------------------------------------------------- |
-| 🌐 **Programming Language** | `Python`                                                              |
-| 🌱 **Environment**          | `Jupyter Notebook`                                                    |
-| 🧩 **Framework**            | `Streamlit`                                                           |
-| ⚛️ **Libraries**            | `NumPy`, `pandas`, `Matplotlib`, `seaborn`, `scikit-learn`, `Joblib`, |
-| ⚡ **Tool**                 | `Google Colab`                                                        |
-| 🚀 **Deployment**           | `Streamlit Community Cloud`                                           |
+| Kategori                    | Teknologi yang Digunakan                                             |
+| :-------------------------- | :------------------------------------------------------------------- |
+| 🌐 **Programming Language** | `Python`                                                             |
+| 🌱 **Environment**          | `Jupyter Notebook`                                                   |
+| 🧩 **Framework**            | `Streamlit`                                                          |
+| ⚛️ **Libraries**            | `NumPy`, `pandas`, `Matplotlib`, `seaborn`, `scikit-learn`, `Joblib` |
+| ⚡ **Tool**                 | `Google Colab`                                                       |
+| 🚀 **Deployment**           | `Streamlit Community Cloud`                                          |
 
 ---
 
