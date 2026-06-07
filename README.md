@@ -2,13 +2,13 @@
 
 ## 📌 Deskripsi
 
-Proyek ini dirancang untuk memetakan dan mengklasifikasikan tingkat stres mahasiswa berdasarkan berbagai parameter input yang memengaruhi kondisi akademik serta psikologis mereka. Dengan memanfaatkan pemodelan berbasis machine learning, sistem ini mampu memprediksi kecenderungan tekanan mental berdasarkan data yang dimasukkan. Hasil akhir ini bertujuan membantu pihak perguruan tinggi dalam memahami kesejahteraan psikologis mahasiswa secara terukur guna mendukung pengambilan keputusan yang tepat dan menciptakan lingkungan kampus yang lebih kondusif.
+Proyek ini dirancang untuk mengklasifikasikan tingkat stres mahasiswa berdasarkan parameter akademik dan psikologis. Dengan memanfaatkan pemodelan machine learning, sistem ini memprediksi tingkat tekanan mental berdasarkan data input yang dimasukkan. Hasil dari proyek ini bertujuan membantu pihak perguruan tinggi dalam memantau kondisi psikologis mahasiswa guna mendukung pengambilan keputusan dan menciptakan lingkungan kampus yang kondusif.
 
 ---
 
 ## 💾 Dataset
 
-Dataset yang digunakan dalam proyek ini bersumber dari [Kaggle: Student Stress Monitoring Datasets](https://www.kaggle.com/datasets/mdsultanulislamovi/student-stress-monitoring-datasets). Dataset ini menyajikan gambaran mendalam mengenai pengalaman mahasiswa terkait tingkat stres, kesehatan, hubungan sosial, pencapaian akademik, serta kesejahteraan emosional mereka. Di dalamnya mencakup respons survei dari 843 mahasiswa berusia 18 hingga 21 tahun yang dikumpulkan secara anonim menggunakan kuesioner dengan skala Likert lima poin, sehingga memungkinkan analisis mendetail mengenai indikator tekanan fisik maupun emosional dan hubungannya dengan performa belajar serta faktor gaya hidup.
+Dataset yang digunakan dalam proyek ini bersumber dari [Kaggle: Student Stress Monitoring Datasets](https://www.kaggle.com/datasets/mdsultanulislamovi/student-stress-monitoring-datasets). Dataset ini berisi respons survei anonim dari 843 mahasiswa perguruan tinggi berusia 18 sampai 21 tahun mengenai tingkat stres, kesehatan, hubungan sosial, akademik, dan kondisi emosional. Respons dikumpulkan menggunakan skala Likert lima poin untuk menganalisis hubungan antara indikator stres dengan performa akademik serta faktor gaya hidup.
 
 ---
 
