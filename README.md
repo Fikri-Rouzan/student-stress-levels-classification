@@ -2,13 +2,13 @@
 
 ## 📌 Deskripsi
 
-Proyek ini dirancang untuk mengklasifikasikan tingkat stres mahasiswa berdasarkan parameter akademik dan psikologis. Dengan memanfaatkan pemodelan machine learning, sistem ini memprediksi tingkat tekanan mental berdasarkan data input yang dimasukkan. Hasil dari proyek ini bertujuan membantu pihak perguruan tinggi dalam memantau kondisi psikologis mahasiswa guna mendukung pengambilan keputusan dan menciptakan lingkungan kampus yang kondusif.
+Proyek ini berfokus pada pemanfaatan pemodelan machine learning untuk mengklasifikasikan tingkat stres pada mahasiswa berdasarkan parameter akademik dan psikologis. Proses analisis dilakukan terhadap data masukan yang mencakup aspek kesehatan, hubungan sosial, capaian akademik, serta kondisi emosional mahasiswa. Hasil dari proyek ini dirancang sebagai alat bantu bagi pihak perguruan tinggi dalam memantau kondisi psikologis mahasiswa secara terukur untuk mempermudah pengambilan keputusan dan mendukung pengelolaan lingkungan kampus yang kondusif.
 
 ---
 
 ## 💾 Dataset
 
-Dataset yang digunakan dalam proyek ini bersumber dari [Kaggle: Student Stress Monitoring Datasets](https://www.kaggle.com/datasets/mdsultanulislamovi/student-stress-monitoring-datasets). Dataset ini berisi respons survei anonim dari 843 mahasiswa perguruan tinggi berusia 18 sampai 21 tahun mengenai tingkat stres, kesehatan, hubungan sosial, akademik, dan kondisi emosional. Respons dikumpulkan menggunakan skala Likert lima poin untuk menganalisis hubungan antara indikator stres dengan performa akademik serta faktor gaya hidup.
+Dataset yang digunakan dalam proyek ini bersumber dari [Kaggle: Student Stress Monitoring Datasets](https://www.kaggle.com/datasets/mdsultanulislamovi/student-stress-monitoring-datasets). Data ini memuat hasil respons survei anonim dari 84 audiensi mahasiswa perguruan tinggi yang berada pada rentang usia 18 hingga 21 tahun. Pengumpulan data dilakukan menggunakan kuesioner skala Likert lima poin untuk memetakan pengalaman mahasiswa terkait tingkat stres, kondisi kesehatan, hubungan sosial, capaian akademik, serta kondisi emosional guna menganalisis korelasinya dengan performa belajar.
 
 ---
 
